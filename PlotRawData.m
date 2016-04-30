@@ -1,5 +1,5 @@
 %% Plot Raw Data
-% Plotet Rohdaten aus Eyetracker Experiment
+% Plotet Rohdaten aus Eyetracker
 % Es muss die Spalte angegeben werden in der die Augenposition fuer das
 % linke Auge liegt.
 % Danach bitte den Datensatz auswaehlen
