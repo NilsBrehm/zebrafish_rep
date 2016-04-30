@@ -1,6 +1,6 @@
+%% Daten auswaehlen und laden
 clear
 clc
-
 [eye.filename, eye.pathname, ~] = uigetfile('*.txt');
 eye.raw = load([eye.pathname eye.filename]);
 
