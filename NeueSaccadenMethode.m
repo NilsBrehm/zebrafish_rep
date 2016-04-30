@@ -1,7 +1,6 @@
 clear
 clc
-% First, we need to select and import some raw eye-tracking data.
-% We recommend using 'sampleeyetrack.txt' - or your own data.
+
 [eye.filename, eye.pathname, ~] = uigetfile('*.txt');
 eye.raw = load([eye.pathname eye.filename]);
 
