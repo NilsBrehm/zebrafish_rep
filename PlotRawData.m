@@ -73,7 +73,7 @@ title(title_nameRe)
 
 % Fig speichern
 figname = num2str(fishnr);
-abb_name = ['belladonna_figs/',speicherort, figname];
+abb_name = ['figs/',speicherort, figname];
 print(abb_name, '-dpng')
 
 

@@ -5,10 +5,7 @@ clc
 tic
 files = dir('data/temp_freq/*.txt');
 alldata = cell(1, numel(files));
-
-alldata = zeros(1, numel(files));
 for i=1:length(files)
-        eval(['load ' files(i).name ' -ascii']);
     alldata{i} = load(files(i).name);
 end
 disp('Daten laden:')
@@ -61,9 +58,9 @@ close all;
 
 for j_dataset = 1:max_datasets
         % Wie viele Fische?
-    sz = size(alldata{dataset});
+    sz = size(fitsALL{1,j_dataset});
     max_cols = sz(1,2);
-    for k_fish = 1:howmanyfish(howmanyfish(:,1) == max_cols,2)
+    for k_fish = 1:max_cols
         if isempty(fitsALL{1,j_dataset}{1,k_fish}.lefteye)
             Velo_BothEyes = fitsALL{1,j_dataset}{1,k_fish}.righteye(:,2);
             M_Velo_BothEyes(k_fish,j_dataset) = mean(Velo_BothEyes);
@@ -85,22 +82,53 @@ M_Velo_AllFish(:,phase) = mean(dummy);
 end
 disp('Daten-Analyse:')
 toc
-%% Velo gegen TempFreq
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Ploting Section
+
+% Velo gegen TempFreq
 temp_freq = [0, 1.41, 45, 180, 11.25, 22.5, 90, 5.63, 2.81];
 VELO = [M_Velo_AllFish; temp_freq]';
 velo_sorted = sort(VELO);
-plot(velo_sorted(:,2), velo_sorted(:,1))
+figure(21)
+set(gcf,'Color',[1 1 1],'Position',[10 10 1000 500], 'Name', 'Velocity')
+subplot(2,1,1)
+plot(velo_sorted(:,2), velo_sorted(:,1),'-ko', 'LineWidth', 2)
+axis([0 300 0 max(velo_sorted(:,1))])
+set(gca,'TickDir','out', 'LineWidth',1.5)
+xlabel('Temporale Frequenz [cycles/s]')
+ylabel('Augengeschwindigkeit [degree/s]')
+box off
+subplot(2,1,2)
+semilogx(velo_sorted(:,2), velo_sorted(:,1),'-ko', 'LineWidth', 2)
+axis([0 300 0 max(velo_sorted(:,1))])
+set(gca,'TickDir','out', 'LineWidth',1.5)
+xlabel('Temporale Frequenz [cycles/s]')
+ylabel('Augengeschwindigkeit [degree/s]')
+box off
 
-%% Gain gegen TempFreq
+% Gain gegen TempFreq
 gain = velo_sorted(2:end,1)./velo_sorted(2:end,2); % Phase 1 auslasen, da Stimvelo = 0 !
 stim_tempfreq = velo_sorted(2:end,2);
 stim_log = log(stim_tempfreq);
-subplot(2,1,1)
-plot(stim_tempfreq, gain, '-o')
-subplot(2,1,2)
-plot(stim_log, gain, '-ro')
 
-%%
+figure(22)
+set(gcf,'Color',[1 1 1],'Position',[10 10 1000 500], 'Name', 'Gain')
+subplot(2,1,1)
+plot(stim_tempfreq, gain, '-ko', 'LineWidth', 2)
+axis([0 300 0 1])
+set(gca,'TickDir','out', 'LineWidth',1.5)
+xlabel('Temporale Frequenz [cycles/s]')
+ylabel('Gain')
+box off
+subplot(2,1,2)
+semilogx(stim_tempfreq, gain, '-ko', 'LineWidth', 2)
+axis([0 300 0 1])
+set(gca,'TickDir','out', 'LineWidth',1.5)
+xlabel('Temporale Frequenz [cycles/s]')
+ylabel('Gain')
+box off
+
+
 % %% Plot Raw Data
 % fish_nr = 2; % Hier Fische Nummer angeben
 % fish_spalten = [5, 7, 9, 11, 13, 15];
