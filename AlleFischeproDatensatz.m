@@ -2,7 +2,7 @@
 % Alle Datasets aus dem Verzeichnis laden
 clear
 clc
-files = dir('belladonna/data/*.txt');
+files = dir('data/*.txt');
 alldata = cell(1, numel(files));
 
 % alldata = zeros(1, numel(files));
@@ -16,6 +16,7 @@ end
 max_datasets = 2;
 sacALL = cell(1, max_datasets);
 fitsALL = cell(1, max_datasets);
+phase = 2;
 
 % Alle Datensets durch gehen, und dort jeweils alle Phasen analysieren
 for dataset = 1:max_datasets
@@ -24,7 +25,9 @@ for dataset = 1:max_datasets
     % Spalte festlegen
     le = 5;
     re = 6;
+    % Simulusphase auslesen
     eyedata.raw = alldata{dataset};
+    eyedata.raw = eyedata.raw(eyedata.raw(:,end)==phase,:);
     
     % Wie viele Fische?
     howmanyfish = [25, 27, 29, 31, 33, 35; 1, 2, 3, 4, 5, 6]';
@@ -48,9 +51,20 @@ close all;
 
 %% Gain
 
+% Mittlerer Gain beide Augen pro Fisch
 
+for j = 1:2
+    for k = 1:6
+        Gains_BothEyes = [fitsALL{1,j}{1,k}.righteye(:,2); fitsALL{1,j}{1,k}.lefteye(:,2)];
+        M_BothEyes(k,j) = mean(Gains_BothEyes);
+    end
+end
 
-
+% Gain over all Fish
+sz = numel(M_BothEyes);
+dummy = reshape(M_BothEyes, sz, 1);
+M_Gain_AllFish = mean(dummy);
+%%
 % %% Plot Raw Data
 % fish_nr = 2; % Hier Fische Nummer angeben
 % fish_spalten = [5, 7, 9, 11, 13, 15];

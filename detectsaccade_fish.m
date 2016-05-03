@@ -14,35 +14,16 @@ dataset_str = num2str(dataset);
 fishNr = num2str(fish(1,1));
 figname = ['Dataset_', dataset_str, '_FishNR_', fishNr, '_Augenseite_'];
 
-% -------------ALT------------------------------------
-% Sacaden in die falsche Richtung rausschmeissen
-% d = diff(eyeposition);
-% index2 = d > 0;
-% negative_slope = timestamp(index2);
-% k = 0;
-% for j = 1:numel(saccadetime)
-%     id = find(negative_slope == saccadetime(j));
-%     id_empty = isempty (id);
-%     if id_empty == 1
-%         continue
-%     end
-%
-%     %       id = negative_slope == saccadetime(j);
-%     k = k+1;
-%     sac_time(k) = negative_slope(id);
-%     leer = isempty (sac_time(k));
-%     if leer == 1
-%         sac_time(k) = 'NaN';
-%     end
-% end
-% saccadetime = sac_time;
-% ----------------------------------------------------
-
 % We have to make sure we don't count the same (prolonged) saccade twice.
 % Remove these apparent, but meaningless, additional saccade times.
 exclusiontime = 2.0;
 fakesaccades = 1 + find(diff(saccadetime) < exclusiontime);
 saccadetime(fakesaccades) = [];
+if isempty(saccadetime)
+    fitparams = [0 0];
+    return;  
+%     error('Es gab keine Saccaden in dieser Phase')
+end
 
 % Fit berechnen, um Saccaden in falsche Richtung auszusortieren
 [~,~,fitparams] = fitinterval_all(timestamp,eyeposition,saccadetime, figname,0);
@@ -78,6 +59,11 @@ box on
 [~,~,fitparams] = fitinterval_all(timestamp,eyeposition,saccadetime, figname, 0);
 % Alle SacadeTimes mit positiver Steigung weiter geben und in Fig
 % reinploten
+if isempty(saccadetime)
+    fitparams = [0 0];
+    return;  
+%     error('Es gab keine Saccaden in dieser Phase')
+end
 index_correct_sac = fitparams(:,2) > 0;
 saccadetime = saccadetime(index_correct_sac);
 zwischen_params1 = fitparams(:,1);

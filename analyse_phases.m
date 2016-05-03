@@ -9,8 +9,8 @@ function [saccade,interval, fitparams_lefteye] = analyse_phases(phase, eye, data
 
 %   % First, we need to select and import some raw eye-tracking data.
 %   % We recommend using 'sampleeyetrack.txt' - or your own data.
-%   [eye.filename, eye.pathname, ~] = uigetfile('*.txt');
-%   eye.raw = load([eye.pathname eye.filename]);
+  [eye.filename, eye.pathname, ~] = uigetfile('*.txt');
+  eye.raw = load([eye.pathname eye.filename]);
 
 % Specifically, read out the time stamps and eye positions.
 % In doing so, shift time to begin trial at 0 sec.
