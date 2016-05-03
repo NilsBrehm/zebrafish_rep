@@ -5,7 +5,7 @@
 
 %% main function
 
-function [saccade,interval, fitparams_lefteye] = analyse_fish(eye, dataset, fish)
+function [saccade, fitparams] = analyse_fish(eye, dataset, fish, side)
   
   % First, we need to select and import some raw eye-tracking data.
   % We recommend using 'sampleeyetrack.txt' - or your own data.
@@ -24,16 +24,24 @@ function [saccade,interval, fitparams_lefteye] = analyse_fish(eye, dataset, fish
 %   eye.stimphase = eye.raw(:,end);
 %   display(unique(eye.stimphase))
 %   eye.leftpos = eye.raw(eye.stimphase==phase,6);
-    
-  % Detect the time stamps at which saccades occur.
-%   [saccade.righteye, fitparams_righteye] = detectsaccade(eye.time,eye.rightpos);
-  [saccade.lefteye, fitparams_lefteye]  = detectsaccade_fish(eye.time,eye.leftpos, dataset, fish);
-  
-  % Are you happy with the automatically detected saccades?
-  % If so, compute how many there are per minute of recording.
+
+ % If so, compute how many there are per minute of recording.
   recordedminutes = (eye.time(end)-eye.time(1)) / 60;
-%   saccade.rightperminute = numel(saccade.righteye) / recordedminutes;
-  saccade.leftperminute  = numel(saccade.lefteye)  / recordedminutes;
+
+% Detect the time stamps at which saccades occur.
+if side == 1 % Left Eye
+    [saccade.lefteye, fitparams.lefteye]  = detectsaccade_fish(eye.time,eye.leftpos, dataset, fish, side);
+    saccade.leftperminute  = numel(saccade.lefteye)  / recordedminutes;
+elseif side == 2 % Right Eye
+    [saccade.righteye, fitparams.righteye]  = detectsaccade_fish(eye.time,eye.rightpos, dataset, fish, side);
+    saccade.rightperminute  = numel(saccade.righteye)  / recordedminutes;
+else
+    error('No Eye selected!');
+end
+
+  % Are you happy with the automatically detected saccades?
+ 
+
     
   % Next, select which part of the data you want to fit a function to.
   % Let us stick to the eye position of the left eye for now, and
@@ -41,7 +49,6 @@ function [saccade,interval, fitparams_lefteye] = analyse_fish(eye, dataset, fish
 
   % Fit berechnen
 %   [intervaltime,intervalfit,interval.fitparams] = fitinterval(eye.time,eye.leftpos,saccade.lefteye);  
-  interval.Fit = 'No Fit';
 
 
   % You can use these fits to further analyse slow-phase eye movements.

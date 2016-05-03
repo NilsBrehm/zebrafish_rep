@@ -28,7 +28,8 @@ for dataset = 1:max_datasets
     for fish = 1:6
         fish = [le, re];
 %         [saccadeALL{fish}, intervalALL{fish}, fitparamsALL{fish}] =  analyse_fish(eyedata, dataset, fish);
-        [saccadeALL, intervalALL, fitparamsALL] =  analyse_fish(eyedata, dataset, fish);
+        [saccadeLE, fitparamsLE] =  analyse_fish(eyedata, dataset, fish, 1);
+        [saccadeRE, fitparamsRE] =  analyse_fish(eyedata, dataset, fish, 2);
         
         le = le+2;
         re = re+2;
