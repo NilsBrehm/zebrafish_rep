@@ -25,9 +25,9 @@ recordedminutes = (eye.time(end)-eye.time(1)) / 60;
 
 % Detect the time stamps at which saccades occur.
 
-[saccade.lefteye, fitparams.lefteye]  = detectsaccade_fish(eye.time,eye.leftpos, dataset, fish);
+[saccade.lefteye, fitparams.lefteye]  = detectsaccade_fish(eye.time,eye.leftpos, dataset, fish, 0);
 saccade.leftperminute  = numel(saccade.lefteye)  / recordedminutes;
-[saccade.righteye, fitparams.righteye]  = detectsaccade_fish(eye.time,eye.rightpos, dataset, fish);
+[saccade.righteye, fitparams.righteye]  = detectsaccade_fish(eye.time,eye.rightpos, dataset, fish, 0);
 saccade.rightperminute  = numel(saccade.righteye)  / recordedminutes;
 end
 
