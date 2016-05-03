@@ -2,7 +2,7 @@
 % Alle Datasets aus dem Verzeichnis laden
 clear
 clc
-files = dir('data/*.txt');
+files = dir('data/temp_freq/*.txt');
 alldata = cell(1, numel(files));
 
 % alldata = zeros(1, numel(files));
@@ -16,7 +16,8 @@ end
 max_datasets = 2;
 sacALL = cell(1, max_datasets);
 fitsALL = cell(1, max_datasets);
-phase = 2;
+
+for phase = 1:9
 
 % Alle Datensets durch gehen, und dort jeweils alle Phasen analysieren
 for dataset = 1:max_datasets
@@ -49,21 +50,46 @@ end
 close all;
 
 
-%% Gain
+% Gain
 
 % Mittlerer Gain beide Augen pro Fisch
 
-for j = 1:2
-    for k = 1:6
-        Gains_BothEyes = [fitsALL{1,j}{1,k}.righteye(:,2); fitsALL{1,j}{1,k}.lefteye(:,2)];
-        M_BothEyes(k,j) = mean(Gains_BothEyes);
+for j_dataset = 1:2
+    for k_fish = 1:6
+        if isempty(fitsALL{1,j_dataset}{1,k_fish}.lefteye)
+            Velo_BothEyes = fitsALL{1,j_dataset}{1,k_fish}.righteye(:,2);
+            M_Velo_BothEyes(k_fish,j_dataset) = mean(Velo_BothEyes);
+        elseif isempty(fitsALL{1,j_dataset}{1,k_fish}.righteye)
+            Velo_BothEyes = fitsALL{1,j_dataset}{1,k_fish}.lefteye(:,2);
+            M_Velo_BothEyes(k_fish,j_dataset) = mean(Velo_BothEyes);
+        else  
+        Velo_BothEyes = [fitsALL{1,j_dataset}{1,k_fish}.righteye(:,2); fitsALL{1,j_dataset}{1,k_fish}.lefteye(:,2)];
+        M_Velo_BothEyes(k_fish,j_dataset) = mean(Velo_BothEyes);
+        end
     end
 end
 
 % Gain over all Fish
-sz = numel(M_BothEyes);
-dummy = reshape(M_BothEyes, sz, 1);
-M_Gain_AllFish = mean(dummy);
+sz = numel(M_Velo_BothEyes);
+dummy = reshape(M_Velo_BothEyes, sz, 1);
+M_Velo_AllFish(:,phase) = mean(dummy);
+
+end
+%% Velo gegen TempFreq
+temp_freq = [0, 1.41, 45, 180, 11.25, 22.5, 90, 5.63, 2.81];
+VELO = [M_Velo_AllFish; temp_freq]';
+velo_sorted = sort(VELO);
+plot(velo_sorted(:,2), velo_sorted(:,1))
+
+%% Gain gegen TempFreq
+gain = velo_sorted(2:end,1)./velo_sorted(2:end,2); % Phase 1 auslasen, da Stimvelo = 0 !
+stim_tempfreq = velo_sorted(2:end,2);
+stim_log = log(stim_tempfreq);
+subplot(2,1,1)
+plot(stim_tempfreq, gain, '-o')
+subplot(2,1,2)
+plot(stim_log, gain, '-ro')
+
 %%
 % %% Plot Raw Data
 % fish_nr = 2; % Hier Fische Nummer angeben
