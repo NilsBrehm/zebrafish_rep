@@ -1,19 +1,23 @@
 %% LOAD DATA
-% Alle Datasets aus dem Verzeichnis laden
-clear
-clc
-files = dir('data/temp_freq/*.txt');
-alldata = cell(1, numel(files));
-
-% alldata = zeros(1, numel(files));
-for i=1:length(files)
-%         eval(['load ' files(i).name ' -ascii']);
-    alldata{i} = load(files(i).name);
-end
+% % Alle Datasets aus dem Verzeichnis laden
+% clear
+% clc
+% tic
+% files = dir('data/temp_freq/*.txt');
+% alldata = cell(1, numel(files));
+% 
+% % alldata = zeros(1, numel(files));
+% for i=1:length(files)
+% %         eval(['load ' files(i).name ' -ascii']);
+%     alldata{i} = load(files(i).name);
+% end
+% disp('Daten laden:')
+% toc
 %% ANALYSE
 % Maximale Anzahl an Datensets ermitteln
-% max_datasets = numel(alldata);
-max_datasets = 2;
+tic
+max_datasets = numel(alldata);
+% max_datasets = 2;
 sacALL = cell(1, max_datasets);
 fitsALL = cell(1, max_datasets);
 
@@ -54,8 +58,11 @@ close all;
 
 % Mittlerer Gain beide Augen pro Fisch
 
-for j_dataset = 1:2
-    for k_fish = 1:6
+for j_dataset = 1:max_datasets
+        % Wie viele Fische?
+    sz = size(alldata{dataset});
+    max_cols = sz(1,2);
+    for k_fish = 1:howmanyfish(howmanyfish(:,1) == max_cols,2)
         if isempty(fitsALL{1,j_dataset}{1,k_fish}.lefteye)
             Velo_BothEyes = fitsALL{1,j_dataset}{1,k_fish}.righteye(:,2);
             M_Velo_BothEyes(k_fish,j_dataset) = mean(Velo_BothEyes);
@@ -75,6 +82,8 @@ dummy = reshape(M_Velo_BothEyes, sz, 1);
 M_Velo_AllFish(:,phase) = mean(dummy);
 
 end
+disp('Daten-Analyse:')
+toc
 %% Velo gegen TempFreq
 temp_freq = [0, 1.41, 45, 180, 11.25, 22.5, 90, 5.63, 2.81];
 VELO = [M_Velo_AllFish; temp_freq]';
