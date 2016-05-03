@@ -76,7 +76,7 @@ ylabel('eye position  (degrees)')
 box on
 
 % Fit berechnen, um Saccaden in falsche Richtung auszusortieren
-[~,~,fitparams] = fitinterval_all(timestamp,eyeposition,saccadetime, figname, 1);
+[~,~,fitparams] = fitinterval_all(timestamp,eyeposition,saccadetime, figname, 0);
 % Alle SacadeTimes mit positiver Steigung weiter geben und in Fig
 % reinploten
 index_correct_sac = fitparams(:,2) > 0;
