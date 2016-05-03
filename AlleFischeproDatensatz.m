@@ -1,18 +1,19 @@
 %% LOAD DATA
-% % Alle Datasets aus dem Verzeichnis laden
-% clear
-% clc
-% tic
-% files = dir('data/temp_freq/*.txt');
-% alldata = cell(1, numel(files));
-% 
-% % alldata = zeros(1, numel(files));
-% for i=1:length(files)
-% %         eval(['load ' files(i).name ' -ascii']);
-%     alldata{i} = load(files(i).name);
-% end
-% disp('Daten laden:')
-% toc
+% Alle Datasets aus dem Verzeichnis laden
+clear
+clc
+tic
+files = dir('data/temp_freq/*.txt');
+alldata = cell(1, numel(files));
+
+alldata = zeros(1, numel(files));
+for i=1:length(files)
+        eval(['load ' files(i).name ' -ascii']);
+    alldata{i} = load(files(i).name);
+end
+disp('Daten laden:')
+toc
+
 %% ANALYSE
 % Maximale Anzahl an Datensets ermitteln
 tic
