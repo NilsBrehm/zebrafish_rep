@@ -24,10 +24,10 @@ eye.time = eye.time - eye.time(1);
 recordedminutes = (eye.time(end)-eye.time(1)) / 60;
 
 % Detect the time stamps at which saccades occur.
-
-[saccade.lefteye, fitparams.lefteye]  = detectsaccade_fish(eye.time,eye.leftpos, dataset, fish, 0);
+wannafigs = 0; % Figs machen = 1, Keine Figs = 0
+[saccade.lefteye, fitparams.lefteye]  = detectsaccade_fish(eye.time,eye.leftpos, dataset, fish, wannafigs,'left');
 saccade.leftperminute  = numel(saccade.lefteye)  / recordedminutes;
-[saccade.righteye, fitparams.righteye]  = detectsaccade_fish(eye.time,eye.rightpos, dataset, fish, 0);
+[saccade.righteye, fitparams.righteye]  = detectsaccade_fish(eye.time,eye.rightpos, dataset, fish, wannafigs, 'right');
 saccade.rightperminute  = numel(saccade.righteye)  / recordedminutes;
 end
 

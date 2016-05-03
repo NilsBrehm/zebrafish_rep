@@ -11,6 +11,12 @@ end
 disp('Daten laden:')
 toc
 
+%% Load Cleaned Data 
+% This loads a cleaned version of the original data (Fish that do shit have
+% been kicked out manually beforehand ;D)
+cleaned = load('cleaned_data.mat');
+alldata = cleaned.alldata;
+
 %% ANALYSE
 % Maximale Anzahl an Datensets ermitteln
 tic
@@ -77,7 +83,8 @@ end
 % Gain over all Fish
 sz = numel(M_Velo_BothEyes);
 dummy = reshape(M_Velo_BothEyes, sz, 1);
-M_Velo_AllFish(:,phase) = mean(dummy);
+dummy2 = dummy(dummy~=0);
+M_Velo_AllFish(:,phase) = mean(dummy2);
 
 end
 disp('Daten-Analyse:')
