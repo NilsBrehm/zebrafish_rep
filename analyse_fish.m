@@ -29,15 +29,12 @@ function [saccade, fitparams] = analyse_fish(eye, dataset, fish, side)
   recordedminutes = (eye.time(end)-eye.time(1)) / 60;
 
 % Detect the time stamps at which saccades occur.
-if side == 1 % Left Eye
-    [saccade.lefteye, fitparams.lefteye]  = detectsaccade_fish(eye.time,eye.leftpos, dataset, fish, side);
+
+    [saccade.lefteye, fitparams.lefteye]  = detectsaccade_fish(eye.time,eye.leftpos, dataset, fish);
     saccade.leftperminute  = numel(saccade.lefteye)  / recordedminutes;
-elseif side == 2 % Right Eye
-    [saccade.righteye, fitparams.righteye]  = detectsaccade_fish(eye.time,eye.rightpos, dataset, fish, side);
+    [saccade.righteye, fitparams.righteye]  = detectsaccade_fish(eye.time,eye.rightpos, dataset, fish);
     saccade.rightperminute  = numel(saccade.righteye)  / recordedminutes;
-else
-    error('No Eye selected!');
-end
+
 
   % Are you happy with the automatically detected saccades?
  

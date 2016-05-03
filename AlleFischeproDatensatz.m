@@ -14,10 +14,8 @@ end
 % Maximale Anzahl an Datensets ermitteln
 % max_datasets = numel(alldata);
 max_datasets = 2;
-sacALL_LE = cell(1, max_datasets);
-fitsALL_LE = cell(1, max_datasets);
-sacALL_RE = cell(1, max_datasets);
-fitsALL_RE = cell(1, max_datasets);
+sacALL = cell(1, max_datasets);
+fitsALL = cell(1, max_datasets);
 
 % Alle Datensets durch gehen, und dort jeweils alle Phasen analysieren
 for dataset = 1:max_datasets
@@ -35,22 +33,16 @@ for dataset = 1:max_datasets
          
     for fish_nr = 1:howmanyfish(howmanyfish(:,1) == max_cols,2)
         fish = [le, re];
-%         [saccadeALL{fish}, intervalALL{fish}, fitparamsALL{fish}] =  analyse_fish(eyedata, dataset, fish);
-        [saccadeLE{fish_nr}, fitparamsLE{fish_nr}] =  analyse_fish(eyedata, dataset, fish, 1);
-        [saccadeRE{fish_nr}, fitparamsRE{fish_nr}] =  analyse_fish(eyedata, dataset, fish, 2);
-        
+        [saccades{fish_nr}, fitparams{fish_nr}] =  analyse_fish(eyedata, dataset, fish);
         le = le+2;
         re = re+2;
         clear fish;
     end
             % Saccaden und Fitparams von diesem Datset speichern
-        sacALL_LE{dataset} = saccadeLE;
-        fitsALL_LE{dataset} = fitparamsLE;
-        sacALL_RE{dataset} = saccadeRE;
-        fitsALL_RE{dataset} = fitparamsRE;
-        clear saccadeLE saccadeRE fitparamsLE fitparamsLE
-        
+        sacALL{dataset} = saccades;
+        fitsALL{dataset} = fitparams;
 end
+
 close all;
 
 

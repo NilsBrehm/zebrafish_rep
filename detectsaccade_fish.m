@@ -1,6 +1,6 @@
 %% In the eye position data, look for sudden movements a.k.a. saccades.
 
-function [saccadetime, fitparams] = detectsaccade_fish(timestamp,eyeposition,dataset,fish, side)
+function [saccadetime, fitparams] = detectsaccade_fish(timestamp,eyeposition,dataset,fish)
 % Median Filter
 eyeposition = medfilt1(eyeposition, 8);
 
@@ -12,8 +12,7 @@ saccadetime = timestamp(index);
 % Fig Name ermitteln
 dataset_str = num2str(dataset);
 fishNr = num2str(fish(1,1));
-side = num2str(side);
-figname = ['Dataset_', dataset_str, '_FishNR_', fishNr, '_Augenseite_', side];
+figname = ['Dataset_', dataset_str, '_FishNR_', fishNr, '_Augenseite_'];
 
 % -------------ALT------------------------------------
 % Sacaden in die falsche Richtung rausschmeissen
