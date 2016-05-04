@@ -24,29 +24,30 @@ velo_sorted = sort(VELO); % Werte der Groesse nach soriteren
 SEM_sorted = sort(SEM); % Werte der Groesse nach soriteren
 
 % Ploten
+velo_sorted_log = log(velo_sorted);
 figure()
 set(gcf,'Color',[1 1 1],'Units', 'centimeters','Position',[0 0 20 10], 'Name', 'Velocity vs. StimVelo')
-plot(velo_sorted(:,2), velo_sorted(:,1),'-ko', 'LineWidth', 2)
+plot(velo_sorted_log(:,2), velo_sorted(:,1),'-ko', 'LineWidth', 2)
 hold on
-errorbar(velo_sorted(:,2), velo_sorted(:,1), SEM_sorted(:,1), 'k.', 'LineWidth',1)
-set(gca,'TickDir','out', 'LineWidth',1.5,'xlim',[0 200], 'ytick', [0:0.5:4], 'FontSize', 12, 'Color' , [1 1 1 1])
-xlabel('Stimulusgeschwindigkeit [Grad/s]', 'FontSize', 14, 'FontWeight', 'bold')
+errorbar(velo_sorted_log(:,2), velo_sorted(:,1), SEM_sorted(:,1), 'k.', 'LineWidth',1)
+set(gca,'TickDir','out', 'LineWidth',1.5,'xlim',[0 max(velo_sorted_log(:,2))+1], 'ytick', [0:0.5:4], 'FontSize', 12, 'Color' , [1 1 1 1])
+xlabel('Logarithmus der Stimulusgeschwindigkeit [Grad/s]', 'FontSize', 14, 'FontWeight', 'bold')
 ylabel('Augengeschwindigkeit [Grad/s]', 'FontSize', 14, 'FontWeight', 'bold')
 box off
-print('finalfigs/VelocityOverStimVelo', '-dpng')
+print('finalfigs/VelocityOverStimVelo_log', '-dpng')
 hold off
 
 figure()
 set(gcf,'Color',[1 1 1],'Units', 'centimeters','Position',[0 0 20 10], 'Name', 'Velocity vs log StimVelo')
-semilogx(velo_sorted(:,2), velo_sorted(:,1),'-ko', 'LineWidth', 2)
+plot(velo_sorted(:,2), velo_sorted(:,1),'-ko', 'LineWidth', 2)
 hold on
 errorbar(velo_sorted(:,2), velo_sorted(:,1), SEM_sorted(:,1), 'k.', 'LineWidth',1)
-% set(gca,'TickDir','out', 'LineWidth',1.5,'xlim',[0 2], 'ytick', [0:0.5:4],...
-%     'FontSize', 12, 'Color' , [1 1 1 1], 'xscale', 'log')
+set(gca,'TickDir','out', 'LineWidth',1.5,'xlim',[0 200], 'ytick', [0:0.5:4],...
+    'FontSize', 12, 'Color' , [1 1 1 1])
 xlabel('Stimulusgeschwindigkeit [Grad/s]', 'FontSize', 14, 'FontWeight', 'bold')
 ylabel('Augengeschwindigkeit [Grad/s]', 'FontSize', 14, 'FontWeight', 'bold')
 box off
-print('finalfigs/VelocityOverStimVelo_log', '-dpng')
+print('finalfigs/VelocityOverStimVelo', '-dpng')
 
 
 % Gain gegen TempFreq -----------------------------------------------------
@@ -83,6 +84,8 @@ hold off
 
 % Velo gegen TempFreq -----------------------------------------------------
 % Ploten
+stim_tempfreq_log = log(stim_tempfreq);
+stim_tempfreq_log(1,1) = 0;
 figure()
 set(gcf,'Color',[1 1 1],'Units', 'centimeters','Position',[0 0 20 10], 'Name', 'Velocity vs TempFreq')
 plot(stim_tempfreq(:,1), velo_sorted(:,1),'-ko', 'LineWidth', 2)
@@ -96,12 +99,11 @@ print('finalfigs/VelocityOverTempFreq', '-dpng')
 
 figure()
 set(gcf,'Color',[1 1 1],'Units', 'centimeters','Position',[0 0 20 10], 'Name', 'Velocity vs TempFreq')
-semilogx(stim_tempfreq(:,1), velo_sorted(:,1),'-ko', 'LineWidth', 2)
+plot(stim_tempfreq_log(2:end,1), velo_sorted(2:end,1),'-ko', 'LineWidth', 2)
 hold on
-errorbar(stim_tempfreq(:,1), velo_sorted(:,1), SEM_sorted(:,1), 'k.', 'LineWidth',1)
-axis([0 6 0 max(velo_sorted(:,1))])
-set(gca,'TickDir','out', 'LineWidth',1.5,'xlim',[0 6], 'ytick', [0:0.5:4], 'FontSize', 12, 'Color' , [1 1 1 1])
-xlabel('Temporale Frequenz [cycles/s]', 'FontSize', 14, 'FontWeight', 'bold')
+errorbar(stim_tempfreq_log(2:end,1), velo_sorted(2:end,1), SEM_sorted(2:end,1), 'k.', 'LineWidth',1)
+set(gca,'TickDir','out', 'LineWidth',1.5,'xlim',[-4 max(stim_tempfreq_log)+1], 'ytick', [0:0.5:4], 'FontSize', 12, 'Color' , [1 1 1 1])
+xlabel('Logarithmus der Temporalen Frequenz [cycles/s]', 'FontSize', 14, 'FontWeight', 'bold')
 ylabel('Augengeschwindigkeit [Grad/s]', 'FontSize', 14, 'FontWeight', 'bold')
 box off
 print('finalfigs/VelocityOverTempFreq_log', '-dpng')
