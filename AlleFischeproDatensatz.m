@@ -102,6 +102,9 @@ for phase = 1:9
     clear dummy2
     clear sz
     
+    % Saccaden pro Minuten over all Fish pro Stimphase
+    
+    
 end
 
 
