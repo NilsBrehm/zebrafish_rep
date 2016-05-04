@@ -7,25 +7,25 @@
 % © Nils Brehm (2016)
 
 %% LOAD DATA
-% Alle Datasets aus dem Verzeichnis laden
-clear
-clc
-tic
-files = dir('data/contrast/*.txt');
-alldata = cell(1, numel(files));
-for i=1:length(files)
-    alldata{i} = load(files(i).name);
-end
-disp('Daten laden:')
-toc
-
-% %% Load Cleaned Data
-% % This loads a cleaned version of the original data (Fish that do shit have
-% % been kicked out manually beforehand ;D)
+% % Alle Datasets aus dem Verzeichnis laden
 % clear
 % clc
-% % cleaned = load('cleaned_data.mat');
-% alldata = cleaned.alldata;
+% tic
+% files = dir('data/contrast/*.txt');
+% alldata = cell(1, numel(files));
+% for i=1:length(files)
+%     alldata{i} = load(files(i).name);
+% end
+% disp('Daten laden:')
+% toc
+
+%% Load Cleaned Data
+% This loads a cleaned version of the original data (Fish that do shit have
+% been kicked out manually beforehand ;D)
+clear
+clc
+cleaned = load('cleaned_data_contrast.mat');
+alldata = cleaned.alldata;
 
 %% ANALYSE
 % Maximale Anzahl an Datensets ermitteln

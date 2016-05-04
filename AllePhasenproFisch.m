@@ -3,7 +3,7 @@
 clear
 clc
 tic
-files = dir('data/temp_freq/*.txt');
+files = dir('data/contrast/*.txt');
 alldata = cell(1, numel(files));
 for i=1:length(files)
     alldata{i} = load(files(i).name);

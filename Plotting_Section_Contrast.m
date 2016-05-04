@@ -12,9 +12,9 @@
 %               Gain        = eye velocity / stimulus velocity
 
 % Fertig analysierte Daten laden (aus AlleFischeproDatensatz Skript)
-% clear
-% clc
-% load('Saccaden_Analyse_03.mat')
+clear
+clc
+load('Saccaden_Contrast_Analyse_02.mat')
 
 % Velo gegen Contrast -----------------------------------------------------
 contrast = [0, 0.05, 0.4, 1, 0, 0.2, 0.8 0.1]*100;
