@@ -95,10 +95,17 @@ for phase = 1:9
     dummy = reshape(M_Velo_BothEyes, sz, 1);
     dummy2 = dummy(dummy~=0);
     M_Velo_AllFish(:,phase) = mean(dummy2);
+    SD_Velo_AllFish(:,phase) = std(dummy2);
+    
+    ns = dummy2;
     clear dummy
-    clear dumm2
+    clear dummy2
     clear sz
     
 end
+
+
+n_fish = numel(ns); % Anzahl an Fischen, die in Datenanalyse eingegangen sind
+SEM_Velo_AllFish = SD_Velo_AllFish / sqrt(n_fish);
 disp('Daten-Analyse:')
 toc
