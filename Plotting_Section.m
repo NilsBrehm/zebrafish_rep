@@ -14,7 +14,7 @@
 % Fertig analysierte Daten laden (aus AlleFischeproDatensatz Skript)
 clear
 clc
-load('Saccaden_Analyse_02.mat')
+load('Saccaden_Analyse_03.mat')
 
 % Velo gegen StimVelo -----------------------------------------------------
 temp_freq = [0, 1.41, 45, 180, 11.25, 22.5, 90, 5.63, 2.81];
@@ -107,6 +107,19 @@ xlabel('Logarithmus der Temporalen Frequenz [Zyklen/Sekunde]', 'FontSize', 14, '
 ylabel('Augengeschwindigkeit [Grad/Sekunde]', 'FontSize', 14, 'FontWeight', 'bold')
 box off
 print('finalfigs/VelocityOverTempFreq_log', '-dpng')
+
+% % Sakkend por Minute pro Stimulusphase
+% figure()
+% set(gcf,'Color',[1 1 1],'Units', 'centimeters','Position',[0 0 20 10], 'Name', 'SakProMin')
+% plot(stim_tempfreq_log(:,1), M_Sac_Mins_ALLFish,'-ko', 'LineWidth', 2)
+% hold on
+% errorbar(stim_tempfreq_log(:,1), M_Sac_Mins_ALLFish, SEM_Sac_Mins_AllFish, 'k.', 'LineWidth',1)
+% set(gca,'TickDir','out', 'LineWidth',1.5,[min(stim_tempfreq) max(stim_tempfreq)], 'ytick', [0:0.5:8], 'FontSize', 12, 'Color' , [1 1 1 1])
+% xlabel('Logarithmus der Temporalen Frequenz [Zyklen/Sekunde]', 'FontSize', 14, 'FontWeight', 'bold')
+% ylabel('Augengeschwindigkeit [Grad/Sekunde]', 'FontSize', 14, 'FontWeight', 'bold')
+% box off
+% print('finalfigs/SacsPerMinOverTempFreq_log', '-dpng')
+
 
 
 % %% Plot Raw Data

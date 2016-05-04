@@ -7,17 +7,17 @@
 % © Nils Brehm (2016)
 
 %% LOAD DATA
-% Alle Datasets aus dem Verzeichnis laden
-clear
-clc
-tic
-files = dir('data/temp_freq/*.txt');
-alldata = cell(1, numel(files));
-for i=1:length(files)
-    alldata{i} = load(files(i).name);
-end
-disp('Daten laden:')
-toc
+% % Alle Datasets aus dem Verzeichnis laden
+% clear
+% clc
+% tic
+% files = dir('data/temp_freq/*.txt');
+% alldata = cell(1, numel(files));
+% for i=1:length(files)
+%     alldata{i} = load(files(i).name);
+% end
+% disp('Daten laden:')
+% toc
 
 %% Load Cleaned Data
 % This loads a cleaned version of the original data (Fish that do shit have
@@ -80,12 +80,17 @@ for phase = 1:9
             if isempty(fitsALL{1,j_dataset}{1,k_fish}.lefteye)
                 Velo_BothEyes = fitsALL{1,j_dataset}{1,k_fish}.righteye(:,2);
                 M_Velo_BothEyes(k_fish,j_dataset) = mean(Velo_BothEyes);
+
             elseif isempty(fitsALL{1,j_dataset}{1,k_fish}.righteye)
                 Velo_BothEyes = fitsALL{1,j_dataset}{1,k_fish}.lefteye(:,2);
                 M_Velo_BothEyes(k_fish,j_dataset) = mean(Velo_BothEyes);
+ 
             else
                 Velo_BothEyes = [fitsALL{1,j_dataset}{1,k_fish}.righteye(:,2); fitsALL{1,j_dataset}{1,k_fish}.lefteye(:,2)];
                 M_Velo_BothEyes(k_fish,j_dataset) = mean(Velo_BothEyes);
+                
+                Sac_Mins = [sacALL{1,j_dataset}{1,k_fish}.rightperminute(1,1), sacALL{1,j_dataset}{1,k_fish}.leftperminute(1,1)];
+                M_Sac_Mins(k_fish,j_dataset) = mean(Sac_Mins);
             end
         end
     end
@@ -103,12 +108,18 @@ for phase = 1:9
     clear sz
     
     % Saccaden pro Minuten over all Fish pro Stimphase
-    
+    sz2 = numel(M_Sac_Mins);
+    dum = reshape(M_Sac_Mins, sz2, 1);
+    M_Sac_Mins_ALLFish(:, phase) = mean(dum,1);
+    SD_Sac_Mins_ALLFish(:, phase) = std(dum);
+    clear sz2
+    clear dum
     
 end
 
 
 n_fish = numel(ns); % Anzahl an Fischen, die in Datenanalyse eingegangen sind
 SEM_Velo_AllFish = SD_Velo_AllFish / sqrt(n_fish);
+SEM_Sac_Mins_AllFish = SD_Sac_Mins_ALLFish / sqrt(n_fish);
 disp('Daten-Analyse:')
 toc
