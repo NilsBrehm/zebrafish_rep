@@ -12,9 +12,9 @@
 %               Gain        = eye velocity / stimulus velocity
 
 % Fertig analysierte Daten laden (aus AlleFischeproDatensatz Skript)
-clear
-clc
-load('Saccaden_Analyse_03.mat')
+% clear
+% clc
+% load('Saccaden_Analyse_03.mat')
 
 % Velo gegen StimVelo -----------------------------------------------------
 temp_freq = [0, 1.41, 45, 180, 11.25, 22.5, 90, 5.63, 2.81];
