@@ -3,7 +3,7 @@
 clear
 clc
 tic
-files = dir('data/AltvsJung/tempfreq/6dpf/*.txt');
+files = dir('data/AltvsJung/contrast/6dpf/*.txt');
 alldata = cell(1, numel(files));
 for i=1:length(files)
     alldata{i} = load(files(i).name);
