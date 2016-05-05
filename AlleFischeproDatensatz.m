@@ -95,7 +95,8 @@ for phase = 1:9
         end
     end
     
-    % Gain over all Fish
+    % Velo over all fish
+    over all Fish
     sz = numel(M_Velo_BothEyes);
     dummy = reshape(M_Velo_BothEyes, sz, 1);
     dummy2 = dummy(dummy~=0);

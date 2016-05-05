@@ -3,7 +3,7 @@
 clear
 clc
 tic
-files = dir('data/AltvsJung/tempfreq/3dpf/*.txt');
+files = dir('data/AltvsJung/tempfreq/6dpf/*.txt');
 alldata = cell(1, numel(files));
 for i=1:length(files)
     alldata{i} = load(files(i).name);
@@ -61,6 +61,7 @@ for j_dataset = 1:max_datasets
         % Wie viele Fische?
     sz = size(fitsALL{1,j_dataset});
     max_cols = sz(1,2);
+    n_fish(j_dataset,1) = max_cols;
     for k_fish = 1:max_cols
         if isempty(fitsALL{1,j_dataset}{1,k_fish}.lefteye)
             Velo_BothEyes = fitsALL{1,j_dataset}{1,k_fish}.righteye(:,2);
@@ -71,14 +72,26 @@ for j_dataset = 1:max_datasets
         else  
         Velo_BothEyes = [fitsALL{1,j_dataset}{1,k_fish}.righteye(:,2); fitsALL{1,j_dataset}{1,k_fish}.lefteye(:,2)];
         M_Velo_BothEyes(k_fish,j_dataset) = mean(Velo_BothEyes);
+        
+         Sac_Mins = [sacALL{1,j_dataset}{1,k_fish}.rightperminute(1,1), sacALL{1,j_dataset}{1,k_fish}.leftperminute(1,1)];
+         M_Sac_Mins(k_fish,j_dataset) = mean(Sac_Mins);
         end
     end
 end
 
-% Gain over all Fish
+% Velo over all Fish
 sz = numel(M_Velo_BothEyes);
-dummy = reshape(M_Velo_BothEyes, sz, 1);
-M_Velo_AllFish(:,phase) = mean(dummy);
+VELOS = reshape(M_Velo_BothEyes, sz, 1);
+M_Velo_AllFish(:,1) = mean(VELOS);
+
+% Sakkaden pro Minute
+sz2 = numel(M_Sac_Mins);
+dum = reshape(M_Sac_Mins, sz2, 1);
+SACS_ProPhase{1} = dum;
+M_Sac_Mins_ALLFish(:, 1) = mean(dum,1);
+SD_Sac_Mins_ALLFish(:, 1) = std(dum);
+clear sz2
+clear dum
 
 % end
 disp('Daten-Analyse:')
