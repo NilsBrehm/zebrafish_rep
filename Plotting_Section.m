@@ -34,7 +34,7 @@ set(gca,'TickDir','out', 'LineWidth',1.5,'xlim',[0 max(velo_sorted_log(:,2))+1],
 xlabel('Logarithmus der Stimulusgeschwindigkeit [Grad/Sekunde]', 'FontSize', 14, 'FontWeight', 'bold')
 ylabel('Augengeschwindigkeit [Grad/Sekunde]', 'FontSize', 14, 'FontWeight', 'bold')
 box off
-print('finalfigs/VelocityOverStimVelo_log', '-dpng')
+print('data/AltvsJung/tempfreq/5dpf/VelocityOverStimVelo_log', '-dpng')
 hold off
 
 figure()
@@ -47,7 +47,7 @@ set(gca,'TickDir','out', 'LineWidth',1.5,'xlim',[0 200], 'ytick', [0:0.5:4],...
 xlabel('Stimulusgeschwindigkeit [Grad/Sekunde]', 'FontSize', 14, 'FontWeight', 'bold')
 ylabel('Augengeschwindigkeit [Grad/Sekunde]', 'FontSize', 14, 'FontWeight', 'bold')
 box off
-print('finalfigs/VelocityOverStimVelo', '-dpng')
+print('data/AltvsJung/tempfreq/5dpf/VelocityOverStimVelo', '-dpng')
 
 
 % Gain gegen TempFreq -----------------------------------------------------
@@ -66,7 +66,7 @@ set(gca,'TickDir','out', 'LineWidth',1.5,'xlim',[0 6], 'xtick', [0:0.5:6],'ylim'
 xlabel('Temporale Frequenz [Zyklen/Sekunde]', 'FontSize', 14, 'FontWeight', 'bold')
 ylabel('Gain', 'FontSize', 14, 'FontWeight', 'bold')
 box off
-print('finalfigs/GainOverTempFreq', '-dpng')
+print('data/AltvsJung/tempfreq/5dpf/GainOverTempFreq', '-dpng')
 hold off
 
 figure()
@@ -79,7 +79,7 @@ set(gca,'TickDir','out', 'LineWidth',1.5,'ylim', [0 1],'xlim',[0 6], 'FontSize',
 xlabel('Temporale Frequenz [Zyklen/Sekunde]', 'FontSize', 14, 'FontWeight', 'bold')
 ylabel('Gain', 'FontSize', 14, 'FontWeight', 'bold')
 box off
-print('finalfigs/GainOverTempFreq_log', '-dpng')
+print('data/AltvsJung/tempfreq/5dpf/GainOverTempFreq_log', '-dpng')
 hold off
 
 % Velo gegen TempFreq -----------------------------------------------------
@@ -95,7 +95,7 @@ set(gca,'TickDir','out', 'LineWidth',1.5,'xlim',[0 6], 'xtick', [0:0.5:6], 'ytic
 xlabel('Temporale Frequenz [Zyklen/Sekunde]', 'FontSize', 14, 'FontWeight', 'bold')
 ylabel('Augengeschwindigkeit [Grad/Sekunde]', 'FontSize', 14, 'FontWeight', 'bold')
 box off
-print('finalfigs/VelocityOverTempFreq', '-dpng')
+print('data/AltvsJung/tempfreq/5dpf/VelocityOverTempFreq', '-dpng')
 
 figure()
 set(gcf,'Color',[1 1 1],'Units', 'centimeters','Position',[0 0 20 10], 'Name', 'Velocity vs TempFreq')
@@ -106,7 +106,7 @@ set(gca,'TickDir','out', 'LineWidth',1.5,'xlim',[min(stim_tempfreq_log)-0.5 max(
 xlabel('Logarithmus der Temporalen Frequenz [Zyklen/Sekunde]', 'FontSize', 14, 'FontWeight', 'bold')
 ylabel('Augengeschwindigkeit [Grad/Sekunde]', 'FontSize', 14, 'FontWeight', 'bold')
 box off
-print('finalfigs/VelocityOverTempFreq_log', '-dpng')
+print('data/AltvsJung/tempfreq/5dpf/VelocityOverTempFreq_log', '-dpng')
 
 % % Sakkend por Minute pro Stimulusphase
 % figure()
@@ -118,7 +118,7 @@ print('finalfigs/VelocityOverTempFreq_log', '-dpng')
 % xlabel('Logarithmus der Temporalen Frequenz [Zyklen/Sekunde]', 'FontSize', 14, 'FontWeight', 'bold')
 % ylabel('Augengeschwindigkeit [Grad/Sekunde]', 'FontSize', 14, 'FontWeight', 'bold')
 % box off
-% print('finalfigs/SacsPerMinOverTempFreq_log', '-dpng')
+% print('data/AltvsJung/tempfreq/5dpf/SacsPerMinOverTempFreq_log', '-dpng')
 
 
 
