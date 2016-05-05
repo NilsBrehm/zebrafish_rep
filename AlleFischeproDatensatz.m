@@ -11,7 +11,7 @@
 clear
 clc
 tic
-files = dir('data/AltvsJung/tempfreq/5dpf/*.txt');
+files = dir('data/AltvsJung/tempfreq/6dpf/*.txt');
 alldata = cell(1, numel(files));
 for i=1:length(files)
     alldata{i} = load(files(i).name);
@@ -99,6 +99,7 @@ for phase = 1:9
     sz = numel(M_Velo_BothEyes);
     dummy = reshape(M_Velo_BothEyes, sz, 1);
     dummy2 = dummy(dummy~=0);
+    VELOS{phase}= dummy2;
     M_Velo_AllFish(:,phase) = mean(dummy2);
     SD_Velo_AllFish(:,phase) = std(dummy2);
     
@@ -110,6 +111,7 @@ for phase = 1:9
     % Saccaden pro Minuten over all Fish pro Stimphase
     sz2 = numel(M_Sac_Mins);
     dum = reshape(M_Sac_Mins, sz2, 1);
+    SACS_ProPhase{phase} = dum;
     M_Sac_Mins_ALLFish(:, phase) = mean(dum,1);
     SD_Sac_Mins_ALLFish(:, phase) = std(dum);
     clear sz2
