@@ -35,7 +35,7 @@ set(gca,'TickDir','out', 'LineWidth',1.5,'xlim',[0 120], 'ytick', [0:0.5:4],...
 xlabel('Kontrast [%]', 'FontSize', 14, 'FontWeight', 'bold')
 ylabel('Augengeschwindigkeit [Grad/Sekunde]', 'FontSize', 14, 'FontWeight', 'bold')
 box off
-print('finalfigs/VelocityOverContrast_log', '-dpng')
+% print('finalfigs/VelocityOverContrast_log', '-dpng')
 hold off
 
 % Gain gegen Contrast -----------------------------------------------------
@@ -54,5 +54,5 @@ set(gca,'TickDir','out', 'LineWidth',1.5,'xlim',[0 120],'ylim', [0 1], 'ytick', 
 xlabel('Kontrast [%]', 'FontSize', 14, 'FontWeight', 'bold')
 ylabel('Gain', 'FontSize', 14, 'FontWeight', 'bold')
 box off
-print('finalfigs/GainOverContrast_log', '-dpng')
+% print('finalfigs/GainOverContrast_log', '-dpng')
 hold off
